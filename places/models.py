@@ -13,7 +13,9 @@ class Place(models.Model):
 
 
 class Image(models.Model):
+    number = models.IntegerField(null=True, blank=True)
     url = models.CharField(max_length=200, null=True, blank=True)
+    photo = models.ImageField(upload_to='media/', null=True, blank=True)
     place = models.ForeignKey('Place', on_delete=models.CASCADE)
 
     def __str__(self):

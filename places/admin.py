@@ -9,5 +9,5 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImagesAdmin(admin.ModelAdmin):
-    fields = ('place', 'url')
-    list_display = ('place', 'url')
+    fields = ('number', 'place', 'url', 'photo')
+    list_display = ('number', 'place', 'url', 'photo')
