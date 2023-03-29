@@ -7,5 +7,6 @@ from places import views
 
 urlpatterns = [
     path('', views.index),
+    path('places/<int:post_id>/', views.place_detail)
 
 ]
