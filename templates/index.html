@@ -39,7 +39,7 @@
     }
   </style>
 
-  {{ places | json_script:"places-geojson" }}
+  {{ GeoJSON | json_script:"places-geojson" }}
 
 
   <script id="app-template" type="text/template">
@@ -95,6 +95,7 @@
 
 </head>
 <body>
+
   <div id="sidebar">
     <div id="sidebar-app"></div>
   </div>

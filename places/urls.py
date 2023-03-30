@@ -1,12 +1,8 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
-from where_to_go import views
+from django.urls import path
 from places import views
 
 urlpatterns = [
     path('', views.index),
-    path('places/<int:post_id>/', views.place_detail)
+    path('places/<int:place_id>/', views.place_detail, name='places')
 
 ]

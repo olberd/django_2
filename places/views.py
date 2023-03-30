@@ -1,43 +1,42 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from places.models import Place
 
 
 def index(request):
-    places = {
+    geo_json = {
         "type": "FeatureCollection",
         "features": []
     }
 
-    place_data = Place.objects.all()
-    for data in place_data:
+    places = Place.objects.all()
+    for place in places:
+
         features_data = {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": []
+                    "coordinates": [place.lng, place.lat]
                 },
                 "properties": {
-                    "title": "«Легенды Москвы",
-                    "placeId": "moscow_legends",
-                    "detailsUrl": "../static/places/moscow_legends.json"
+                    "title": place.title,
+                    "detailsUrl": reverse('places', args=(place.id, )),
                 }
             }
 
-        features_data['geometry']['coordinates'] = [data.lng, data.lat]
-        features_data['properties']['title'] = data.title
-        places["features"].append(features_data)
+        geo_json["features"].append(features_data)
 
-    data = {
-        'places': places,
+    context = {
+        'GeoJSON': geo_json,
     }
 
-    return render(request, 'index.html', context=data)
+    return render(request, 'index.html', context=context)
 
 
-def place_detail(request, post_id):
-    place_details = get_object_or_404(Place, id=post_id)
+def place_detail(request, place_id):
+    place_details = get_object_or_404(Place, id=place_id)
     images = place_details.images.all()
     title = place_details.title
     imgs = [img.photo.url for img in images]
