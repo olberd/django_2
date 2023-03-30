@@ -17,12 +17,8 @@ class Place(models.Model):
 
 class Image(models.Model):
     order = models.PositiveSmallIntegerField(default=0, verbose_name='Порядковый номер', null=True, blank=True)
-    url = models.CharField(max_length=200, null=True, blank=True)
     photo = models.ImageField(null=True, blank=True)
     place = models.ForeignKey('Place', on_delete=models.CASCADE, related_name='images')
-
-    def __str__(self):
-        return self.url
 
     class Meta:
         ordering = ['order']
