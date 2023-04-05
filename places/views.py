@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
@@ -40,7 +40,7 @@ def place_detail(request, place_id):
     images = place_details.images.all()
     title = place_details.title
     imgs = [img.photo.url for img in images]
-    description_short = place_details.description_shot
+    description_short = place_details.description_short
     description_long = place_details.description_long
     coordinates = [place_details.lat, place_details.lng]
 

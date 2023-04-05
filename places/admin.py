@@ -23,7 +23,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
-    fields = ('title', 'description_shot', 'description_long', 'lat', 'lng')
+    fields = ('title', 'description_short', 'description_long', 'lat', 'lng')
     inlines = [
         ImagesInline,
     ]
