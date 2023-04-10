@@ -6,12 +6,12 @@ from places.models import Place, Image
 
 
 class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
-    fields = ('place', ('photo', 'place_img',), 'order',)
-    readonly_fields = ('place_img', )
+    fields = ('place', ('photo', 'get_img',), 'order',)
+    readonly_fields = ('get_img', )
     extra = 1
     model = Image
 
-    def place_img(self, img):
+    def get_img(self, img):
         return format_html(f'<img src="{img.photo.url}", height=200px />')
 
 

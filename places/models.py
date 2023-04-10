@@ -17,7 +17,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    order = models.PositiveSmallIntegerField(default=0, verbose_name='Позиция', null=True, blank=True)
+    order = models.PositiveSmallIntegerField(default=0, verbose_name='Позиция')
     photo = models.ImageField()
     place = models.ForeignKey('Place', on_delete=models.CASCADE, related_name='images')
 

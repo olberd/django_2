@@ -6,36 +6,36 @@ from places.models import Place
 
 
 def index(request):
-    geo_json = {
-        "type": "FeatureCollection",
-        "features": []
-    }
-
+    features = []
     places = Place.objects.all()
     for place in places:
 
         features_data = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [place.lng, place.lat]
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [place.lng, place.lat]
                 },
-                "properties": {
-                    "title": place.title,
-                    "detailsUrl": reverse('places', args=(place.id, )),
+                'properties': {
+                    'title': place.title,
+                    'detailsUrl': reverse('places', args=(place.id, )),
                 }
             }
+        features.append(features_data)
 
-        geo_json["features"].append(features_data)
+    geo_places = {
+        'type': 'FeatureCollection',
+        'features': features
+    }
 
     context = {
-        'GeoJSON': geo_json,
+        'GeoJSON': geo_places,
     }
 
     return render(request, 'index.html', context=context)
 
 
-def place_detail(request, place_id):
+def get_place_detail(request, place_id):
     place_details = get_object_or_404(Place, id=place_id)
     images = place_details.images.all()
     title = place_details.title
