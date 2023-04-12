@@ -20,14 +20,15 @@ class Command(BaseCommand):
             print('Сервер не доступен')
             exit()
 
-        place, created = Place.objects.get_or_create(title=response['title'],
-                                                     defaults={
-                                                         'description_short': response['description_short'],
-                                                         'description_long': response['description_long'],
-                                                         'lng': response['coordinates']['lng'],
-                                                         'lat': response['coordinates']['lat'],
-                                                              },
-                                                     )
+        place, created = Place.objects.get_or_create(
+            title=response['title'],
+            defaults={
+                'description_short': response['description_short'],
+                'description_long': response['description_long'],
+                'lng': response['coordinates']['lng'],
+                'lat': response['coordinates']['lat'],
+            },
+        )
         img_urls = response['imgs']
         for order, img_url in enumerate(img_urls):
             try:

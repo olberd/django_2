@@ -33,17 +33,11 @@ def index(request):
 def get_place_detail(request, place_id):
     place_details = get_object_or_404(Place, id=place_id)
     images = place_details.images.all()
-    title = place_details.title
-    imgs = [img.photo.url for img in images]
-    description_short = place_details.description_short
-    description_long = place_details.description_long
-    coordinates = [place_details.lat, place_details.lng]
     place_descriptions = {
-        'title': title,
-        'imgs': imgs,
-        'description_short': description_short,
-        'description_long': description_long,
-        'coordinates': coordinates,
+        'title': place_details.title,
+        'imgs': [img.photo.url for img in images],
+        'description_short': place_details.description_short,
+        'description_long': place_details.description_long,
+        'coordinates': [place_details.lat, place_details.lng],
     }
-    return JsonResponse(place_descriptions, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 2})
-
+    return JsonResponse(place_descriptions, json_dumps_params={'ensure_ascii': False, 'indent': 2})
