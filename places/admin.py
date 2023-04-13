@@ -12,7 +12,7 @@ class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
 
     def get_img(self, img):
-        return format_html(f'<img src="{img.photo.url}", height=200px />')
+        return format_html('<img src="{}", height=200px />', img.photo.url)
 
 
 @admin.register(Image)
