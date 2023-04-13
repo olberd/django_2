@@ -21,15 +21,15 @@ class Command(BaseCommand):
             exit()
 
         place, created = Place.objects.get_or_create(
-            title=response['title'],
+            description_short=response.get('description_short', ''),
+            description_long=response.get('description_long', ''),
             defaults={
-                'description_short': response['description_short'],
-                'description_long': response['description_long'],
+                'title': response['title'],
                 'lng': response['coordinates']['lng'],
                 'lat': response['coordinates']['lat'],
-            },
+            }
         )
-        img_urls = response['imgs']
+        img_urls = response.get('imgs', [])
         for order, img_url in enumerate(img_urls):
             try:
                 response = requests.get(img_url)
@@ -38,6 +38,8 @@ class Command(BaseCommand):
                 print('Сервер не доступен')
                 exit()
 
-            image = Image.objects.create(place_id=place.id, order=order)
-            content = ContentFile(response.content)
-            image.photo.save(name='image.jpg', content=content, save=True)
+            image = Image.objects.create(
+                place_id=place.id,
+                order=order,
+                photo=ContentFile(response.content, 'image.jpg')
+            )
