@@ -19,6 +19,7 @@ def index(request):
                 'detailsUrl': reverse('places', args=(place.id, )),
             }
         }
+
         features.append(features_data)
     geo_places = {
         'type': 'FeatureCollection',
