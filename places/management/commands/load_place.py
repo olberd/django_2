@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 print('Сервер не доступен')
                 exit()
 
-            image = Image.objects.create(
+            Image.objects.create(
                 place_id=place.id,
                 order=order,
                 photo=ContentFile(response.content, 'image.jpg')
