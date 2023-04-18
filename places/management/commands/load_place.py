@@ -6,7 +6,7 @@ from places.models import Place, Image
 
 
 class Command(BaseCommand):
-    help = 'Загружает данные в базу из json файла'
+    help = 'Загружает данные в базу по ссылке json файла'
 
     def add_arguments(self, parser):
         parser.add_argument('json_url', help='Введите ссылку на Json файл')
