@@ -14,22 +14,22 @@ class Command(BaseCommand):
         try:
             response = requests.get(options['json_url'])
             response.raise_for_status()
-            place_desc = response.json()
+            payload = response.json()
         except requests.exceptions.HTTPError:
             print('Сервер не доступен')
             exit()
 
         place, created = Place.objects.get_or_create(
-            title=place_desc['title'],
-            lng=place_desc['coordinates']['lng'],
-            lat=place_desc['coordinates']['lat'],
+            title=payload['title'],
+            lng=payload['coordinates']['lng'],
+            lat=payload['coordinates']['lat'],
             defaults={
-                'description_short': place_desc.get('description_short', ''),
-                'description_long': place_desc.get('description_long', ''),
+                'description_short': payload.get('description_short', ''),
+                'description_long': payload.get('description_long', ''),
             }
         )
         if created:
-            img_urls = place_desc.get('imgs', [])
+            img_urls = payload.get('imgs', [])
             for order, img_url in enumerate(img_urls):
                 try:
                     response = requests.get(img_url)
