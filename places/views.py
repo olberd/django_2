@@ -19,14 +19,13 @@ def index(request):
                 'detailsUrl': reverse('places', args=(place.id, )),
             }
         }
-
         features.append(features_data)
-    geo_places = {
-        'type': 'FeatureCollection',
-        'features': features
-    }
+
     context = {
-        'GeoJSON': geo_places,
+        'GeoJSON': {
+            'type': 'FeatureCollection',
+            'features': features
+        }
     }
     return render(request, 'index.html', context=context)
 
